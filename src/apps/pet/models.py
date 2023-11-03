@@ -6,6 +6,9 @@ class ProductBD(models.Model):
 	product_category = models.CharField(max_length=40)
 	manufacturer = models.CharField()
 	article_number = models.IntegerField()
+    
+	def __str__(self):
+		return self.title
 	
 class DiscountBD(models.Model):
 	date_start = models.DateTimeField()
@@ -21,7 +24,7 @@ class SellPriceBD(models.Model):
 	date_stop = models.DateTimeField()
 	price = models.FloatField()
 	product_id = models.ForeignKey(ProductBD, on_delete=models.CASCADE)
-	discount_id = models.ForeignKey(DiscountBD, on_delete=models.CASCADE)
+	discount_id = models.ForeignKey(DiscountBD, on_delete=models.CASCADE, null=True)
 
 class OrderBD(models.Model):
 	user_id = models.ForeignKey(UserBD, on_delete=models.CASCADE)
