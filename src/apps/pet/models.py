@@ -24,7 +24,7 @@ class SellPriceBD(models.Model):
 	date_stop = models.DateTimeField()
 	price = models.FloatField()
 	product_id = models.ForeignKey(ProductBD, on_delete=models.CASCADE)
-	discount_id = models.ForeignKey(DiscountBD, on_delete=models.CASCADE, null=True)
+	discount_id = models.ForeignKey(DiscountBD, on_delete=models.CASCADE, null=True, blank=True)
 
 class OrderBD(models.Model):
 	user_id = models.ForeignKey(UserBD, on_delete=models.CASCADE)
