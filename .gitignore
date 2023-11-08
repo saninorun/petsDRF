@@ -13,3 +13,5 @@ petsdrf
 *.zip
 *.sqlite3
 pyvenv.cfg
+pyproject.toml
+poetry.lock

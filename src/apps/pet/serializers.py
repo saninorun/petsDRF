@@ -33,30 +33,30 @@ class SellPriceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SellPriceBD
-        fields = ['date_start', 'date_stop', 'price']
+        fields = ['date_start', 'date_stop', 'product_id', 'price', 'discount_id']
 
 class OrderSerializer(serializers.ModelSerializer):
     user_id = UserSerializer()
     class Meta:
         model = OrderBD
-        fields = ['date']
+        fields = ['user_id', 'date']
 
 class OrderitemSerializer(serializers.ModelSerializer):
     order_id = OrderSerializer()
     sell_price_id = SellPriceSerializer()
     class Meta:
         model = OrderitemDB
-        fields = ['quantity']
+        fields = ['order_id', 'sell_price_id', 'quantity']
 
 class StockOrderSerializer(serializers.ModelSerializer):
     manager_id = UserSerializer()
     class Meta:
         model = StockOrderDB
-        fields = ['date']
+        fields = ['manager_id','date']
 
 class StockOrderItemSerializer(serializers.ModelSerializer):
     stock_order_id = StockOrderSerializer()
     product_id = ProductSerializer()
     class Meta:
         model = StockOrderItemDB
-        fields = ['quantity', 'purchase_price']
+        fields = ['stock_order_id', 'product_id', 'quantity', 'purchase_price']
