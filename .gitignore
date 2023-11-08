@@ -3,6 +3,9 @@ Include
 share
 Lib
 Scripts
+petsdrf
+.venv
+.vscode
 *.csv
 *.ipynb
 *.db

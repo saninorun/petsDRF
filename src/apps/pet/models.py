@@ -41,7 +41,7 @@ class StockOrderDB(models.Model):
 	manager_id = models.ForeignKey(UserBD, on_delete=models.CASCADE)
 	date = models.DateTimeField()
 	
-class StockOrderItem(models.Model):
+class StockOrderItemDB(models.Model):
 	stock_order_id = models.ForeignKey(StockOrderDB, on_delete=models.CASCADE)
 	quantity = models.PositiveIntegerField()
 	purchase_price = models.PositiveIntegerField()
