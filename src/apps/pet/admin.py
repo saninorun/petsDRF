@@ -4,9 +4,9 @@ from .models import (
     DiscountBD,
     UserBD,
     OrderBD,
-    OrderitemDB,
-    StockOrderDB,
-    StockOrderItemDB,
+    OrderitemBD,
+    StockOrderBD,
+    StockOrderItemBD,
     ) 
 from django.contrib import admin
 
@@ -16,7 +16,7 @@ admin.site.register(ProductBD)
 admin.site.register(DiscountBD)
 admin.site.register(UserBD)
 admin.site.register(OrderBD)
-admin.site.register(OrderitemDB)
-admin.site.register(StockOrderDB)
-admin.site.register(StockOrderItemDB)
+admin.site.register(OrderitemBD)
+admin.site.register(StockOrderBD)
+admin.site.register(StockOrderItemBD)
 

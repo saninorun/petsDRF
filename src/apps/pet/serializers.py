@@ -6,9 +6,9 @@ from .models import (
     DiscountBD,
     UserBD,
     OrderBD,
-    OrderitemDB,
-    StockOrderDB,
-    StockOrderItemDB,
+    OrderitemBD,
+    StockOrderBD,
+    StockOrderItemBD,
     )
 
 
@@ -17,46 +17,45 @@ class ProductSerializer(serializers.ModelSerializer):
         model = ProductBD
         fields = ['title', 'accounting_unit', 'product_category', 'manufacturer', 'article_number']
 
-class DiscountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DiscountBD
-        fields = ['date_start', 'date_stop', 'discount']
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserBD
-        fields = ['name', 'status']
+        fields = ['id','name', 'status']
+
+class DiscountSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+    class Meta:
+        model = DiscountBD
+        fields = ['product', 'discount', 'date_start', 'date_stop']
      
 class SellPriceSerializer(serializers.ModelSerializer):
-    product_id = ProductSerializer(many = True, required = True)
-    discount_id = DiscountSerializer(many = True, required = True)
-
+    product = ProductSerializer()
     class Meta:
         model = SellPriceBD
-        fields = ['date_start', 'date_stop', 'product_id', 'price', 'discount_id']
-
-class OrderSerializer(serializers.ModelSerializer):
-    user_id = UserSerializer()
-    class Meta:
-        model = OrderBD
-        fields = ['user_id', 'date']
+        fields = ['product', 'price', 'date_start', 'date_stop']
 
 class OrderitemSerializer(serializers.ModelSerializer):
-    order_id = OrderSerializer()
-    sell_price_id = SellPriceSerializer()
+    product = ProductSerializer()
     class Meta:
-        model = OrderitemDB
-        fields = ['order_id', 'sell_price_id', 'quantity']
+        model = OrderitemBD
+        fields = ['product', 'sell_price', 'discount', 'quantity', 'total']
+        
+class OrderSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+    items_list = OrderitemSerializer(many=True)
+    class Meta:
+        model = OrderBD
+        fields = ['user', 'date', 'items_list']
 
 class StockOrderSerializer(serializers.ModelSerializer):
-    manager_id = UserSerializer()
+    manager = UserSerializer()
     class Meta:
-        model = StockOrderDB
-        fields = ['manager_id','date']
+        model = StockOrderBD
+        fields = ['manager','date']
 
 class StockOrderItemSerializer(serializers.ModelSerializer):
-    stock_order_id = StockOrderSerializer()
-    product_id = ProductSerializer()
+    stock_order = StockOrderSerializer()
+    product = ProductSerializer()
     class Meta:
-        model = StockOrderItemDB
-        fields = ['stock_order_id', 'product_id', 'quantity', 'purchase_price']
+        model = StockOrderItemBD
+        fields = ['stock_order', 'product', 'quantity', 'purchase_price']

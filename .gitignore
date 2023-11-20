@@ -6,6 +6,7 @@ Scripts
 petsdrf
 .venv
 .vscode
+.idea
 *.csv
 *.ipynb
 *.db
